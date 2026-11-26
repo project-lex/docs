@@ -5,7 +5,7 @@ title: project creation
 # Project creation
 
 !!! warning "Draft"
-This page describes the **agreed flow**, not the current code. Parts of it are not implemented yet; see [Implementation status](#implementation-status).
+    This page describes the **agreed flow**, not the current code. Parts of it are not implemented yet; see [Implementation status](#implementation-status).
 
 Creating a project in LEX means registering a new **config** (one config per service/project). A config is checked, stored in the config repository, scheduled, and put on the queue. A project exists once all of these steps succeeded.
 
@@ -85,7 +85,10 @@ After the scheduler confirms, config management adds the config to the **queue**
 | Schedule       | Scheduler fails                  | Error               | Config exists in repo (_open question_)        |
 | Queue          | Queue fails                      | Error               | Config in repo and scheduled (_open question_) |
 
-!!! question "Open questions" - **Rollback:** if scheduling or queueing fails after the config was stored, should creation be rolled back (delete config and schedule), or retried? The diagram does not say. - **Ordering:** the diagram schedules first and queues second. Should the queue step wait for the scheduler, or can both run in parallel? - **Updates:** the same flow could handle changes to an existing config. Is that a separate flow?
+!!! question "Open questions" 
+    - **Rollback:** if scheduling or queueing fails after the config was stored, should creation be rolled back (delete config and schedule), or retried? The diagram does not say.
+    - **Ordering:** the diagram schedules first and queues second. Should the queue step wait for the scheduler, or can both run in parallel? 
+    - **Updates:** the same flow could handle changes to an existing config. Is that a separate flow?
 
 ## Implementation status
 

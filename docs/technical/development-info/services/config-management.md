@@ -56,28 +56,28 @@ ctrl ..> err : next(error)
 
 ### Code layout
 
-| Path                            | Purpose                                                    |
-| ------------------------------- | ---------------------------------------------------------- |
-| `src/main.ts`                   | Starts the HTTP server on `PORT`                           |
-| `src/app.ts`                    | Express setup, JSON body parser, request logging, routing  |
-| `src/config/config.ts`          | Reads environment variables into a typed config object     |
-| `src/routes/`                   | Route definitions (`ping`, `config`)                       |
-| `src/controllers/`              | Request handlers, input validation, status codes           |
-| `src/services/github.ts`        | Loads the repository tree and blobs from GitHub            |
-| `src/services/mongodb.ts`       | MongoDB access (lazy singleton client)                     |
-| `src/services/vault.ts`         | Reads the MongoDB credentials from Vault                   |
-| `src/middlewares/errorHandler.ts` | Maps errors to a JSON response                           |
+| Path                              | Purpose                                                   |
+| --------------------------------- | --------------------------------------------------------- |
+| `src/main.ts`                     | Starts the HTTP server on `PORT`                          |
+| `src/app.ts`                      | Express setup, JSON body parser, request logging, routing |
+| `src/config/config.ts`            | Reads environment variables into a typed config object    |
+| `src/routes/`                     | Route definitions (`ping`, `config`)                      |
+| `src/controllers/`                | Request handlers, input validation, status codes          |
+| `src/services/github.ts`          | Loads the repository tree and blobs from GitHub           |
+| `src/services/mongodb.ts`         | MongoDB access (lazy singleton client)                    |
+| `src/services/vault.ts`           | Reads the MongoDB credentials from Vault                  |
+| `src/middlewares/errorHandler.ts` | Maps errors to a JSON response                            |
 
 ## API
 
-| Method   | Path                          | Description                                                      | Success | Errors        |
-| -------- | ----------------------------- | ---------------------------------------------------------------- | ------- | ------------- |
-| `GET`    | `/`                           | Returns `Hello World`                                            | `200`   |               |
-| `GET`    | `/ping`                       | Health check, returns `{"message":"Pong"}`                       | `200`   |               |
-| `GET`    | `/config/all`                 | Syncs **all** files from GitHub into MongoDB and returns them    | `200`   | `500`         |
-| `GET`    | `/config?service=<key>`       | Returns one config from MongoDB                                  | `200`   | `400`, `404`, `500` |
-| `DELETE` | `/config?service=<key>`       | Deletes one config from MongoDB                                  | `204`   | `400`, `404`, `500` |
-| `DELETE` | `/config/all`                 | Deletes all configs from MongoDB                                 | `204`   | `500`         |
+| Method   | Path                    | Description                                                   | Success | Errors              |
+| -------- | ----------------------- | ------------------------------------------------------------- | ------- | ------------------- |
+| `GET`    | `/`                     | Returns `Hello World`                                         | `200`   |                     |
+| `GET`    | `/ping`                 | Health check, returns `{"message":"Pong"}`                    | `200`   |                     |
+| `GET`    | `/config/all`           | Syncs **all** files from GitHub into MongoDB and returns them | `200`   | `500`               |
+| `GET`    | `/config?service=<key>` | Returns one config from MongoDB                               | `200`   | `400`, `404`, `500` |
+| `DELETE` | `/config?service=<key>` | Deletes one config from MongoDB                               | `204`   | `400`, `404`, `500` |
+| `DELETE` | `/config/all`           | Deletes all configs from MongoDB                              | `204`   | `500`               |
 
 Errors are returned as JSON, e.g. `{"message": "..."}` (unhandled errors) or `{"error": "..."}` (validation / not found).
 
@@ -207,22 +207,22 @@ Example:
 
 Copy `.env.example` to `.env` for local development.
 
-| Variable             | Required | Default                    | Description                                                    |
-| -------------------- | :------: | -------------------------- | -------------------------------------------------------------- |
-| `PORT`               |          | `3000`                     | HTTP port                                                      |
-| `NODE_ENV`           |          | `development`              | Runtime environment                                            |
-| `GIT_TOKEN`          | yes      |                            | GitHub token with read access to repository contents          |
-| `GIT_URL`            | yes      |                            | Repository URL; owner and repo are parsed from it              |
-| `GIT_BRANCH`         | yes      | `main`                     | Branch to read                                                 |
-| `GITHUB_OWNER`       |          | from `GIT_URL`             | Overrides the parsed owner                                     |
-| `GITHUB_REPO`        |          | from `GIT_URL`             | Overrides the parsed repository                                |
-| `MONGODB_URI`        | yes      | `mongodb://localhost:27017`| MongoDB connection URI, without password                       |
-| `MONGODB_DB`         | yes      | `configs`                  | Database name, also used as `authSource`                       |
-| `MONGODB_COLLECTION` | yes      | `configs`                  | Collection name                                                |
-| `VAULT_ADDR`         | yes      | `http://localhost:8200`    | Vault base URL                                                 |
-| `VAULT_TOKEN`        | yes      |                            | Vault token                                                    |
-| `VAULT_SECRET_PATH`  | yes      | `secret/data/mongodb`      | KV v2 path of the secret holding `password` (and `username`)   |
-| `VAULT_NAMESPACE`    |          |                            | Vault namespace (Enterprise)                                   |
+| Variable             | Required | Default                     | Description                                                  |
+| -------------------- | :------: | --------------------------- | ------------------------------------------------------------ |
+| `PORT`               |          | `3000`                      | HTTP port                                                    |
+| `NODE_ENV`           |          | `development`               | Runtime environment                                          |
+| `GIT_TOKEN`          |   yes    |                             | GitHub token with read access to repository contents         |
+| `GIT_URL`            |   yes    |                             | Repository URL; owner and repo are parsed from it            |
+| `GIT_BRANCH`         |   yes    | `main`                      | Branch to read                                               |
+| `GITHUB_OWNER`       |          | from `GIT_URL`              | Overrides the parsed owner                                   |
+| `GITHUB_REPO`        |          | from `GIT_URL`              | Overrides the parsed repository                              |
+| `MONGODB_URI`        |   yes    | `mongodb://localhost:27017` | MongoDB connection URI, without password                     |
+| `MONGODB_DB`         |   yes    | `configs`                   | Database name, also used as `authSource`                     |
+| `MONGODB_COLLECTION` |   yes    | `configs`                   | Collection name                                              |
+| `VAULT_ADDR`         |   yes    | `http://localhost:8200`     | Vault base URL                                               |
+| `VAULT_TOKEN`        |   yes    |                             | Vault token                                                  |
+| `VAULT_SECRET_PATH`  |   yes    | `secret/data/mongodb`       | KV v2 path of the secret holding `password` (and `username`) |
+| `VAULT_NAMESPACE`    |          |                             | Vault namespace (Enterprise)                                 |
 
 !!! warning "Secrets"
     Never commit a real `.env`. Use a read-only, fine-grained GitHub token (_Repository permissions → Contents → Read-only_) and a Vault token limited to the one secret path.
@@ -237,13 +237,13 @@ cp .env.example .env   # adjust values
 npm run dev            # nodemon + ts-node
 ```
 
-| Script               | Description                          |
-| -------------------- | ------------------------------------ |
-| `npm run dev`        | Start with auto-reload               |
-| `npm run build`      | Compile TypeScript to `dist/`        |
-| `npm start`          | Run the compiled app (`dist/main.js`)|
-| `npm run lint`       | Lint `src/**/*.ts`                   |
-| `npx tsc --noEmit`   | Type check only                      |
+| Script             | Description                           |
+| ------------------ | ------------------------------------- |
+| `npm run dev`      | Start with auto-reload                |
+| `npm run build`    | Compile TypeScript to `dist/`         |
+| `npm start`        | Run the compiled app (`dist/main.js`) |
+| `npm run lint`     | Lint `src/**/*.ts`                    |
+| `npx tsc --noEmit` | Type check only                       |
 
 ### Docker
 
@@ -269,15 +269,15 @@ flowchart LR
 
 ## Troubleshooting
 
-| Symptom                                       | Check                                                                                  |
-| --------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `Missing required GitHub config`              | `GIT_TOKEN` and `GIT_URL` set? `GIT_URL` must contain `github.com/<owner>/<repo>`       |
-| `GitHub API error 404`                        | Branch name, repository name and token permissions                                     |
-| `VAULT_TOKEN is not set`                      | Set `VAULT_TOKEN`; all MongoDB-backed endpoints depend on it                           |
-| `Vault error 403`                             | Token policy, `VAULT_SECRET_PATH` (KV v2 needs the `/data/` segment), `VAULT_NAMESPACE`|
-| `Vault secret ... has no "password" field`    | Create it, e.g. `vault kv put secret/mongodb password=...`                             |
-| MongoDB authentication fails                  | `MONGODB_URI`, the user must exist in the database named by `MONGODB_DB` (`authSource`)|
-| TypeScript import errors                      | Run `npx tsc --noEmit` and restart the TS server                                       |
+| Symptom                                    | Check                                                                                   |
+| ------------------------------------------ | --------------------------------------------------------------------------------------- |
+| `Missing required GitHub config`           | `GIT_TOKEN` and `GIT_URL` set? `GIT_URL` must contain `github.com/<owner>/<repo>`       |
+| `GitHub API error 404`                     | Branch name, repository name and token permissions                                      |
+| `VAULT_TOKEN is not set`                   | Set `VAULT_TOKEN`; all MongoDB-backed endpoints depend on it                            |
+| `Vault error 403`                          | Token policy, `VAULT_SECRET_PATH` (KV v2 needs the `/data/` segment), `VAULT_NAMESPACE` |
+| `Vault secret ... has no "password" field` | Create it, e.g. `vault kv put secret/mongodb password=...`                              |
+| MongoDB authentication fails               | `MONGODB_URI`, the user must exist in the database named by `MONGODB_DB` (`authSource`) |
+| TypeScript import errors                   | Run `npx tsc --noEmit` and restart the TS server                                        |
 
 ## Known limitations
 

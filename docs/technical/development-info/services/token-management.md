@@ -3,8 +3,6 @@ title: Token management
 version: 0.1.0
 ---
 
-# Token Management
-
 !!! info "Planned service"
     Token Management is **not implemented yet**. This page describes the agreed design. Details marked _(proposal)_ are not decided yet. Once the code exists, this page should be checked against it.
 
@@ -56,14 +54,14 @@ T --> S : valid / invalid
 
 The user chooses the lifetime when creating the token.
 
-| Option      | `expires_at`            |
-| ----------- | ----------------------- |
-| never       | `NULL`                  |
-| 7 days      | now + 7 days            |
-| 30 days     | now + 30 days           |
-| 2 months    | now + 2 months          |
-| 3 months    | now + 3 months          |
-| custom      | date/duration from user |
+| Option   | `expires_at`            |
+| -------- | ----------------------- |
+| never    | `NULL`                  |
+| 7 days   | now + 7 days            |
+| 30 days  | now + 30 days           |
+| 2 months | now + 2 months          |
+| 3 months | now + 3 months          |
+| custom   | date/duration from user |
 
 There is no limit on the number of tokens per user. Every user may create every lifetime option, including `never`.
 
@@ -129,12 +127,12 @@ The lookup by hash should use a unique index and, ideally, a constant-time compa
 
 ## API _(proposal)_
 
-| Method   | Path               | Auth             | Description                                  | Success | Errors             |
-| -------- | ------------------ | ---------------- | -------------------------------------------- | ------- | ------------------ |
-| `POST`   | `/tokens`          | Keycloak session | Create a token; plain token only in response | `201`   | `400`, `401`       |
-| `GET`    | `/tokens`          | Keycloak session | List own tokens (metadata, never the token)  | `200`   | `401`              |
-| `DELETE` | `/tokens/{id}`     | Keycloak session | Revoke one own token                         | `204`   | `401`, `404`       |
-| `POST`   | `/tokens/validate` | service call     | Check a token                                | `200`   | `400`, `401`       |
+| Method   | Path               | Auth             | Description                                  | Success | Errors       |
+| -------- | ------------------ | ---------------- | -------------------------------------------- | ------- | ------------ |
+| `POST`   | `/tokens`          | Keycloak session | Create a token; plain token only in response | `201`   | `400`, `401` |
+| `GET`    | `/tokens`          | Keycloak session | List own tokens (metadata, never the token)  | `200`   | `401`        |
+| `DELETE` | `/tokens/{id}`     | Keycloak session | Revoke one own token                         | `204`   | `401`, `404` |
+| `POST`   | `/tokens/validate` | service call     | Check a token                                | `200`   | `400`, `401` |
 
 ### `POST /tokens`
 
@@ -208,11 +206,11 @@ Unique index on `token_hash`, index on `user_id`.
 
 ## Dependencies
 
-| Dependency | Purpose                                                    |
-| ---------- | ---------------------------------------------------------- |
+| Dependency | Purpose                                                      |
+| ---------- | ------------------------------------------------------------ |
 | Keycloak   | Authenticates the user that creates, lists or revokes tokens |
-| PostgreSQL | Stores token hashes and metadata                           |
-| Vault      | Database credentials, like the other services _(proposal)_ |
+| PostgreSQL | Stores token hashes and metadata                             |
+| Vault      | Database credentials, like the other services _(proposal)_   |
 
 This is the first project-lex service that uses PostgreSQL; the other services use MongoDB.
 
