@@ -25,6 +25,7 @@ Here you will find a list (might be inaccurate) of the services we use and their
 | config validator  | validates service configurations against versioned JSON schemas. Schema versions can be marked as deprecated; | :octicons-check-24: |
 | scheduler         | can run multiple ques to send requests periodically                                                           | :octicons-check-24: |
 | que management    | holds items in a que and will be forwarded after request from scheduler                                       | :octicons-check-24: |
+| token management  | issues, validates and revokes opaque API tokens (planned, not implemented yet)                                | :octicons-clock-24: |
 |                   |                                                                                                               |                     |
 
 ### external services
@@ -49,7 +50,7 @@ All other services are developed and maintained by project-lex.
 - [Config Validator](./services/config-validator.md)
 - [Scheduler](./services/scheduler.md)
 - [Que Management](./services/que-management.md)
-- [Token Management](./services/token-management.draft.md)
+- [Token Management](./services/token-management.md)
 
 ## How the services work together
 
