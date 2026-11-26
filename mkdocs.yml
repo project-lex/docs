@@ -1,4 +1,7 @@
 site_name: Project Lex Documentation
+docs_dir: docs
+strict: true
+
 theme:
   name: material
   features:
@@ -8,5 +11,5 @@ theme:
     - content.code.copy
 
 nav:
-  - Start: README.md
+  - Start: index.md
   - Technical Documentation: technical/README.md

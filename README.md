@@ -1,4 +1,13 @@
-# Project-LEX
+# Project-LEX docs
 
-Welcome to the documentation page of project LEX.
-On these sites you will find technical documentation as well as user guides.
+Source of the Project LEX documentation (MkDocs Material).
+
+```bash
+python -m venv .venv && . .venv/bin/activate
+pip install -r requirements.txt
+mkdocs serve            # http://127.0.0.1:8000
+mkdocs build --strict   # same check CI runs
+```
+
+Content lives in [`docs/`](docs/), navigation in [`mkdocs.yml`](mkdocs.yml).
+Merges to `main` build the Docker image and deploy it via Coolify.
