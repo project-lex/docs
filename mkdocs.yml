@@ -1,15 +1,78 @@
 site_name: Project Lex Documentation
-docs_dir: docs
 strict: true
+site_url: https://docs.project-lex.org
+site_description: Documentation for Project Lex
+site_author: <"Johannes Losch" hi@jlosch.de>
+copyright: "2026, Johannes Losch"
+
+site_dir: site
+docs_dir: docs
+draft_docs: |
+  /drafts/
+  *.draft.md
+
+dev_addr: localhost:8000
 
 theme:
-  name: material
+  name: zensical
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    primary: "indigo"
+    accent: "indigo"
+  font:
+    text: "Inter"
+  language: "en"
   features:
+    - header.autohide
+    - navigation.footer
+    - navigation.tracking
     - navigation.tabs
     - navigation.sections
-    - search.suggest
-    - content.code.copy
+    - search.highlight
+    - content.tooltips
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - abbr
+  - pymdownx.snippets
+  - tables
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:zensical.extensions.emoji.to_svg
+      emoji_index: !!python/name:zensical.extensions.emoji.twemoji
+  - toc:
+      permalink: true
+  - plantuml_markdown:
+      format: svg
+      theme: plain
+      # renders locally with the `plantuml` binary (java + graphviz, see Dockerfile)
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: "https://github.com/project-lex"
+  generator: false
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
 
-nav:
-  - Start: index.md
-  - Technical Documentation: technical/README.md
+repo_url: "https://github.com/project-lex/docs"
+repo_name: "Project Lex Docs"
+
+plugins:
+  - offline
+  - search:
+      enabled: false
+
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - javascripts/tablesort.js

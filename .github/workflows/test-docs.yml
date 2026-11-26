@@ -8,8 +8,8 @@ permissions:
   contents: read
 
 jobs:
-  mkdocs:
-    name: MkDocs strict build
+  build:
+    name: Zensical strict build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,10 +19,16 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      - name: Install PlantUML
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends plantuml graphviz
+
       - run: pip install -r requirements.txt
 
-      # --strict fails on broken links, missing nav files and config warnings
-      - run: mkdocs build --strict
+      # --strict aborts the build on warnings
+      # plantuml_markdown only logs diagram errors, so fail on them explicitly
+      - run: |
+          zensical build --clean --strict 2>&1 | tee build.log
+          ! grep -q "Error in" build.log
 
   docker:
     name: Docker image smoke test
@@ -50,4 +56,4 @@ jobs:
           done
           curl -fsS http://localhost:8080/ | grep -q "Project Lex Documentation"
           curl -fsS -o /dev/null http://localhost:8080/technical/
-          curl -fsS -o /dev/null http://localhost:8080/search/search_index.json
+          curl -fsS -o /dev/null http://localhost:8080/search.json

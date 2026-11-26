@@ -1,0 +1,16 @@
+services:
+  docs:
+    build:
+      context: .
+      target: dev
+    ports:
+      - "8000:8000"
+    volumes:
+      # whole project dir (not single files): survives editors that replace files on save
+      - .:/docs
+      # keep build output and cache inside the container
+      - /docs/site
+      - /docs/.cache
+    environment:
+      # polling as fallback if file events from the host do not arrive
+      WATCHFILES_FORCE_POLLING: "true"

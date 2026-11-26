@@ -1,1 +1,2 @@
-mkdocs-material>=9,<10
+zensical>=0.1.3
+plantuml-markdown>=3.11
