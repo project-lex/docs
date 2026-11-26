@@ -63,6 +63,7 @@ jobs:
       - name: Trigger Coolify deployment
         if: github.ref == 'refs/heads/main'
         run: |
-          curl -fsS -X POST \
+          curl -fsS -G -X POST \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_DEPLOY_WEBHOOK }}" \
+            --data-urlencode "force=true" \
             "${{ secrets.COOLIFY_DEPLOY_WEBHOOK_URL }}"
