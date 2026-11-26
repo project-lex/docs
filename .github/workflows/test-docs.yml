@@ -19,8 +19,19 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      # Debian's plantuml package is from 2020 (no `!theme`), so use the same
+      # upstream jar as the Dockerfile (keep PLANTUML_VERSION in sync)
       - name: Install PlantUML
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends plantuml graphviz
+        env:
+          PLANTUML_VERSION: "1.2026.10"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends default-jre-headless graphviz
+          sudo curl -fsSL -o /opt/plantuml.jar \
+            "https://github.com/plantuml/plantuml/releases/download/v${PLANTUML_VERSION}/plantuml-${PLANTUML_VERSION}.jar"
+          printf '#!/bin/sh\nexec java -Djava.awt.headless=true -jar /opt/plantuml.jar "$@"\n' | sudo tee /usr/local/bin/plantuml > /dev/null
+          sudo chmod +x /usr/local/bin/plantuml
+          plantuml -version
 
       - run: pip install -r requirements.txt
 
