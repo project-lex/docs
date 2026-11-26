@@ -3,8 +3,6 @@ title: Que management
 version: 1.0.0
 ---
 
-# Que Management
-
 Queue Management (repository `queue-management`) holds work items in a queue in MongoDB. Items are ordered by position. When the [scheduler](./scheduler.md) asks for the next item of a given _duration_, the service forwards the item to a configurable target service and removes it from the queue.
 
 Source: [project-lex/queue-management](https://github.com/project-lex/queue-management)

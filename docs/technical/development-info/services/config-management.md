@@ -3,8 +3,6 @@ title: Config management
 version: 1.0.0
 ---
 
-# Config Management
-
 Config Management is a small TypeScript/Express service. It loads configuration files from a GitHub repository and stores them in MongoDB, so that other services can read their configuration from one central place.
 
 Source: [project-lex/config-management](https://github.com/project-lex/config-management)

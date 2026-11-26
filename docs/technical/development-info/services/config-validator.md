@@ -3,8 +3,6 @@ title: Config validator
 version: 1.0.0
 ---
 
-# Config Validator
-
 Config Validator is a TypeScript/Express service that validates a service configuration against **versioned JSON schemas**. Schema versions can be marked as _deprecated_, so clients learn that their config only matches an outdated schema.
 
 Source: [project-lex/config-validator](https://github.com/project-lex/config-validator)

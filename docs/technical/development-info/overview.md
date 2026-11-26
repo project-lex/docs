@@ -4,8 +4,6 @@ description: Dev information for project lex
 icon: octicons/command-palette-16
 ---
 
-# Development information
-
 ## Overview services
 
 We use multiple types of services written as micro services. These architechture solves multiple benefits:

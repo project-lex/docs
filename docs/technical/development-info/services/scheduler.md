@@ -3,8 +3,6 @@ title: Scheduler
 version: 1.0.0
 ---
 
-# Scheduler
-
 The scheduler is a Go service (Gin + MongoDB) that runs one-shot timers. A schedule consists of a `name` and a `duration`. When the duration has elapsed, the scheduler sends a webhook request and marks the schedule as `fired`. Schedules are stored in MongoDB and restored after a restart.
 
 Source: [project-lex/scheduler](https://github.com/project-lex/scheduler)
